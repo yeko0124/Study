@@ -31,7 +31,8 @@ key_data = {'project': {'shot': {'EP0001': {'EP0001_0010': {'frange': None}}}}}
 # json_modify(json_file, ['project', 'shot', 'EP0001', 'EP0001_0010', 'frange'], [1001, 1100])
 # json_modify(json_file, key_data, [1001, 1100])
 
-insert_key_data = {'project': {'shot': {'EP0005': {'EP0005_0050': {'frange': [1001, 1200]}}}}}
+# insert_key_data = {'project': {'shot': {'EP0005': {'EP0005_0050': {'frange': [1001, 1200]}}}}}
+insert_key_data = {'EP0005': {'EP0005_0050': {'frange': [1001, 1200]}}}
 
 # json_insert(json_file, insert_key_data)
 
@@ -49,26 +50,23 @@ delete_key_data = {'project': {'shot': {'EP0005': None}}}
 #                 return
 #
 
-def json_insert(data: dict):
+def json_insert(data: dict, in_data: dict):
     insert_dict = data
     pprint.pprint(insert_dict)
     for k, v in data.items():
         if k != 'shot':
             if isinstance(v, dict):
                 print('shot 아니니 넘어가')
-                json_insert(v)
+                json_insert(v, in_data)
         # print(data)
         else:
-            print('shot이다')
-            print('k번:', insert_dict[k])
-            insert_dict[k].add = 'EP0005'  #{'EP0005_0050': {'frange': [1001, 1200]}}
-            print('결과일까')
+            insert_dict[k].update(in_data)
             pprint.pprint(insert_dict)
-            return
+            # if data.items == json_insert(v, in_data)
     return insert_dict
 
 
 import pprint
 
 # pprint.pprint(json_insert(json_data))
-json_insert(json_data)
+json_insert(json_data, insert_key_data)
