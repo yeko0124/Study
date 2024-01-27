@@ -49,7 +49,6 @@ json_author(json_data)
 
 """
 json_author 출력
-( '-'는 넣지 못함.. )
 worker1 2023-10-10
 worker2 2023-10-15
 zzzz
