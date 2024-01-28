@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="rsb">
+    <file>img/paper.png</file>
+    <file>img/scissors.png</file>
+    <file>img/rock.png</file>
+  </qresource>
+</RCC>
