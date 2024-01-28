@@ -1,0 +1,26 @@
+{
+    "project": {
+        "name": "mermaid",
+        "datetime": "2024-02-01",
+        "shot": {
+            "EP0001": {
+                "EP0001_0010": {
+                    "fps": 24,
+                    "frange": [1001, 1100],
+                    "author": ["anon", "aa"],
+                    "filepath": {
+                        "hipfile": "/home/rapa/down",
+                        "nkfile": "/home/rnk"
+                    }
+                }
+            },
+            "EP0002": {
+                "EP0002_0010": {
+                    "fps": 24,
+                    "frange": [1001, 1050],
+                    "author": ["anon"]
+                }
+            }
+        }
+    }
+}
