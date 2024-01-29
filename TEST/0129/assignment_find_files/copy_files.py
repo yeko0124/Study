@@ -6,7 +6,9 @@ import pathlib
 # shutil.chown() 권한을 바꿔주는 모듈
 # shutil.copytree()  디렉토리 복사해주는 모듈
 
-dirpath = pathlib.Path('/home/rapa/copy_files/seqeunce_data')
+# dirpath = pathlib.Path('/home/rapa/copy_files/seqeunce_data')
+
+dirpath = pathlib.Path('/Users/yeko/Desktop/netflix_TD/python/sequence_data')
 
 # shutil.copy2('/home/rapa/aaa.py', '/home/rapa/qqq.py')
 
