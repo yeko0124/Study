@@ -1,6 +1,8 @@
 """
-계산기 프로그램
+(사칙연산 한번만 누를 수 있는, 일회용)
+신기한 계산기 프로그램.....입니다..^_^
 """
+
 import sys
 from PySide2 import QtGui, QtWidgets, QtCore
 
@@ -11,21 +13,29 @@ importlib.reload(cal_custom_ui)
 
 
 class Calculator(QtWidgets.QWidget, cal_custom_ui.Ui_Form):
-    def __init__(self, num=None, parent=None):
+    def __init__(self, parent=None):
         super(Calculator, self).__init__(parent)
-        self.num = num
-
-        self.dis1 = 0
-        self.dis2 = 0
-
         self.setupUi(self)
+        self.setWindowTitle('사칙연산 한번만 누를 수 있는 계신기')
 
-        self.num_lst = []
-        self.num_lst2 = []
+        self.num = 0  # 버튼을 누를 때, 그에 맞는 숫자를 받기 위한 용도
+
+        # 리스트들은 1의 자리수부터 10의 0제곱으로 시작해서,
+        # 1, 10, 100 씩 곱해주며 더해주기 위해 사용하였음
+        self.num_lst = []  # 사칙연산 누르기 전의 숫자들을 받을 리스트
+        self.num_lst2 = []  # 사칙연산 누른 후의 숫자들을 받기 위해 lst를 lst2로 옮겨놓기 위함
+
+        self.dis1 = 0  # lst를 값으로 변환한 후에 저장하기 위한 용도
+        self.dis2 = 0   # lst2를 값으로 변환한 후에 저장하기 위한 용도
+        # dis1, dis2를 str으로 변환하여 eval로 계산할 수 있게 됌.
+
+        self.str_to_eval = ' '  # eval을 하기 위한 비어있는 변수
 
         self._signal()
 
     def _signal(self):
+        # TODO: 하나하나 다 안쓰고도 할 수 있는 방법이 뭘까? 너무 반복되는데..
+        # 그래도 일단은, 각 버튼마다 시그널을 주기 위해 하나씩 다 만듦
         self.pushButton_1.clicked.connect(self.set1)
         self.pushButton_2.clicked.connect(self.set2)
         self.pushButton_3.clicked.connect(self.set3)
@@ -42,72 +52,79 @@ class Calculator(QtWidgets.QWidget, cal_custom_ui.Ui_Form):
         self.pushButton__mul.clicked.connect(self.mul)
         self.pushButton__sub.clicked.connect(self.sub)
 
-        self.pushButton_res.clicked.connect(self.res_show)
-
-    # TODO: 하나하나 다 안쓰고도 할 수 있는 방법이 뭘까? 너무 반복되는데..
+        self.pushButton_res.clicked.connect(self.calculate)
 
     def set1(self):
         self.lcdNumber.display(1)
         self.num = 1
+        print(1, end = '')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set2(self):
         self.lcdNumber.display(2)
         self.num = 2
+        print(2, end = '')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set3(self):
         self.lcdNumber.display(3)
         self.num = 3
+        print(3, end = '')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set4(self):
         self.lcdNumber.display(4)
         self.num = 4
+        print(4, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set5(self):
         self.lcdNumber.display(5)
         self.num = 5
+        print(5, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set6(self):
         self.lcdNumber.display(6)
         self.num = 6
+        print(6, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set7(self):
         self.lcdNumber.display(7)
         self.num = 7
+        print(7, end = '')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set8(self):
         self.lcdNumber.display(8)
         self.num = 8
+        print(8, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set9(self):
         self.lcdNumber.display(9)
         self.num = 9
+        print(9, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
     def set0(self):
         self.lcdNumber.display(0)
         self.num = 0
+        print(0, end ='')
         self.num_lst.append(self.num)
-        return self.num_lst
+        # return self.num_lst
 
-    @staticmethod
-    def make_num(lst):
+    def make_num(self, lst):
         # reversed를 하면 뒤에서부터 오니까,
         # 1의 자리는 0으로 시작해서 10씩 제곱해주고 제곱한 값을 더하면 될 듯.
         res = 0
@@ -115,54 +132,47 @@ class Calculator(QtWidgets.QWidget, cal_custom_ui.Ui_Form):
         for i in reversed(lst):
             i = i * 10**j
             res += i
+            self.lcdNumber.display(res)
             j = j+1
         return res
 
-    # eval을 써야하나
-    def res_show(self):
+    def calculate(self, var: str):
         self.dis1 = self.make_num(self.num_lst2)
         self.dis2 = self.make_num(self.num_lst)
-        r = self.dis1 + self.dis2
-        print(f'{self.dis2}\n-----\n={r}')
-        self.lcdNumber.display(r)
+        self.str_to_eval += str(self.dis2)
+        print('\n----------')
+        e = eval(self.str_to_eval)
+        print(f'={e}\n')
+        self.lcdNumber.display(e)
+        self.num_lst = []
+        self.dis1, self.dis2, self.str_to_eval = 0, 0, ''
+        # print(e)
+
+    def save_num(self):
+        self.dis1 = self.make_num(self.num_lst)  # res가 저장이 됌(int)
+        self.lcdNumber.display(self.dis1)
+        self.num_lst2 = self.num_lst
         self.num_lst = []
 
     def add(self):
-        self.dis1 = self.make_num(self.num_lst)  # res가 저장이 됌(int)
-        # add를 누르고 나서 뒤의 숫자를 입력하기 때문에,
-        # lambda로 임시 함수를 지정해야 하나??? 변수를 늦게 받으니까..?
-        self.lcdNumber.display(self.dis1)
-        # other 를 쓰고 싶은데,,,,!!!!!!!!
-        print(f'{self.dis1}\n+ ')
-        self.num_lst2 = self.num_lst
-        self.num_lst = []
-        # todo: other.make_num()을 할 수 있는 방법이 뭘까 -> RES 에서 써야하나?
+        self.save_num()
+        self.str_to_eval = str(f'{self.dis1}+')
+        print('\n+')
 
-    # eval을 쓰면 될까 ????????
     def sub(self):
-        self.dis1 = self.make_num(self.num_lst)  # res가 저장이 됌(int)
-        self.lcdNumber.display(self.make_num(self.num_lst))
-        print(f'{self.make_num(self.num_lst)} - ')
-        self.num_lst2 = self.num_lst
-        self.num_lst = []
+        self.save_num()
+        self.str_to_eval = str(f'{self.dis1}-')
+        print('\n-')
 
     def mul(self):
-        self.dis1 = self.make_num(self.num_lst)  # res가 저장이 됌(int)
-        self.lcdNumber.display(self.make_num(self.num_lst))
-        print(f'{self.make_num(self.num_lst)} * ')
-        self.num_lst2 = self.num_lst
-        self.num_lst = []
+        self.save_num()
+        self.str_to_eval = str(f'{self.dis1}*')
+        print('\nx')
 
     def div(self):
-        self.dis1 = self.make_num(self.num_lst)  # res가 저장이 됌(int)
-        self.lcdNumber.display(self.make_num(self.num_lst))
-        print(f'{self.make_num(self.num_lst)} % ')
-        self.num_lst2 = self.num_lst
-        self.num_lst = []
-
-    # def __add__(self, other):
-    #     # for i in self.num_lst:
-    #     print(Calculator(self.make_num() + other.make_num()))
+        self.save_num()
+        self.str_to_eval = str(f'{self.dis1}/')
+        print('\n%')
 
 
 if __name__ == '__main__':
