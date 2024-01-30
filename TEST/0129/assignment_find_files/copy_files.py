@@ -1,5 +1,6 @@
 # file copy test
 import re
+import pyseq
 import shutil
 import pathlib
 
@@ -16,11 +17,12 @@ res = dirpath.glob('*.exr')
 
 comp = re.compile(r'\.(?P<frange>[0-9]{4})\.', re.DOTALL)
 file_frame_lst = []
-
+filename_lst = list()
 for i in res:
     srch = comp.search(i.name)
     # print(i.name)  # file 이름만 나옴
     file_frame_lst.append(int(srch.group('frange')))
+    filename_lst.append(i.name)
 
 
 lst = range(1001, 1151)
@@ -30,7 +32,8 @@ frame_info = set(lst) ^ set(file_frame_lst)
 print(list(frame_info))
 
 # 단일 테스트를 해야한다.
-
+s = pyseq.Sequence(filename_lst)
+print(s)
 # s = 'render.1047.exr'
 
 # zz = re.search(r'\.(?P<frange>[0-9]{4})\.', s, re.DOTALL)
