@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../icons/error.png</file>
+    <file>../icons/file.png</file>
+    <file>../icons/missing.png</file>
+  </qresource>
+</RCC>
