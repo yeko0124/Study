@@ -25,6 +25,10 @@ class CheckWord:
         '''
         return pathlib.Path(self.__fpath)
 
+    @fullpath.setter
+    def fullpath(self, val: str):
+        self.__fpath = pathlib.Path(val)
+
     @property
     def depth(self) -> int:
         '''
@@ -32,10 +36,6 @@ class CheckWord:
         :return: 깊이 값
         '''
         return self.__depth
-
-    @depth.setter
-    def depth(self, val):
-        self.__depth = val
 
     @staticmethod
     def is_check_word(fpath: pathlib.Path, find_str: str) -> bool:

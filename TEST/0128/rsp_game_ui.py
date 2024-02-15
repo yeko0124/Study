@@ -108,7 +108,7 @@ class Ui_Form(object):
 
         self.label__com_name = QLabel(self.layoutWidget)
         self.label__com_name.setObjectName(u"label__com_name")
-        self.label__com_name.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.label__com_name.setAlignment(Qt.AlignRight | Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.horizontalLayout.addWidget(self.label__com_name)
 

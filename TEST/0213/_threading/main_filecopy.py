@@ -251,7 +251,8 @@ class CustomFileCopy(QtWidgets.QMainWindow, cus_file_cpy.Ui_MainWindow__filecopy
 
     def slot_source_dir(self):
         btn: QtWidgets.QToolButton = self.sender()
-        sel_dir: pathlib.Path = qt_lib.QtLibs.dir_dialog('/home/rapa/workspace/data/usd')
+        # sel_dir: pathlib.Path = qt_lib.QtLibs.dir_dialog('/home/rapa/workspace/data/usd')
+        sel_dir: pathlib.Path = qt_lib.QtLibs.dir_dialog('/Users/yeko/Desktop/netflix_TD/self_study/')
         print(btn.text(), btn)
 
         # sel_dir = library.QtLibs.dir_dialog('/home/rapa')

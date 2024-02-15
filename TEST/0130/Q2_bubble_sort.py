@@ -45,25 +45,13 @@ class Bubble:
     def run_sort_call(self, callback_func) -> list:
         length = len(self.lst)
         for i in range(length - 1):
-            # if self.lst[i] > self.lst[i + 1]:
-            #     tmp = self.lst[i]
-            #     self.lst[i] = self.lst[i + 1]
-            #     self.lst[i + 1] = tmp
-            # 2중 포문을 하는 이유는, 무작정 1, 2 를 바꾸면 2가 1의 자리에 갓을 때 1이 사라지므로,
-            # 미리 2를 다른 곳에 넣어두고 1을 2의 자리에 넣은 후 2를 1의 자리에 넣는 것임
             for j in range(length - i - 1):
                 if callback_func is not None:
                     if callback_func(self.lst[j], self.lst[j+1]):
                         self.swap(j)
-                        # tmp = self.lst[j]
-                        # self.lst[j] = self.lst[j+1]
-                        # self.lst[j+1] = tmp
                 else:
                     if self.lst[j] > self.lst[j + 1]:  # 오름차순으로 할건지, 내림차순으로 할 건지 이 부분에서 결정을 하는 것임
                         self.swap(j)
-                        # tmp = self.lst[j]
-                        # self.lst[j] = self.lst[j + 1]
-                        # self.lst[j + 1] = tmp
         return self.lst
 
 

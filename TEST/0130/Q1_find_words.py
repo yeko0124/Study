@@ -10,19 +10,19 @@ class Check:
     def __init__(self):
         self.words = None
         self.get = {}
-        self.w_lst = list()
 
         self.open_files()
 
+    # 단어 추출 메서드
     def open_files(self):
-        with open('/home/rapa/git_workspace/Study/TEST/0130/daddy.txt', 'r') as fp:
+        with open('/Users/yeko/Desktop/netflix_TD/self_study/Study/TEST/0130/daddy.txt', 'r') as fp:
             context = fp.read()
             context = context.lower()
             voca = re.sub(r'[?!@#$%^&*()_+=.,–\'"]+', '', context, re.DOTALL)
-            self.words = filter(lambda x: len(x) > 2, voca.split())  # 단어가 3개 이상인 것부터만 출력
+            self.words = filter(lambda x: len(x) > 2, voca.split())  # 단어가 3개 이상인 것부터만 출력 -> 강사님 tip
             # print(self.words)
 
-    # @staticmethod
+    # 회문 체크 메서드
     def check_words(self, word):
         a = 0
         b = -1
@@ -42,11 +42,10 @@ class Check:
     def get_words(self):
         for i in self.words:
             self.check_words(i)
-        print(self.get)
+        # print(self.get)
+        return self.get
 
 
 c = Check()
-c.get_words()
-# c.check_words('wow')
+print(c.get_words())
 
-# {'abcba' : 2, 'qwerewq': 1}

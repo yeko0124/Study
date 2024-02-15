@@ -68,6 +68,6 @@ class ChangeFiles:
             return False
 
 
-if __name__ == '__main__':
-    c = ChangeFiles('#include "PXR2', '#include "pxr(.+)')
+# if __name__ == '__main__':
+    # c = ChangeFiles('#include "PXR2', '#include "pxr(.+)')
     # c.change_file(pathlib.Path(testfile), True)
